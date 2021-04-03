@@ -15,8 +15,12 @@ This project is a...
 
 ## Screenshots of App
 
+### Wireframe
+![image](./assets/screenshots/wireframe.png)
+
 ### Workflow of App
 ![image](./assets/screenshots/pageLoadFlow.png)
+![image](./assets/screenshots/inputSubmittedFlow.png)
 
 ## Video of App
 You can view the app in action [here](.assets/../assets/screenshots/applicationworkingvideo.mov).
