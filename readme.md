@@ -15,17 +15,8 @@ This project is a...
 
 ## Screenshots of App
 
-### Start Screen
-![image](.assets/../assets/screenshots/startscreen.png) 
-
-### Question Page
-![image](.assets/../assets/screenshots/question.png)
-
-### Score Submission
-![image](.assets/../assets/screenshots/gameoverscreen.png)
-
-### Highscores Page
-![image](.assets/../assets/screenshots/highscorestable.png)
+### Workflow of App
+![image](./assets/screenshots/pageLoadFlow.png)
 
 ## Video of App
 You can view the app in action [here](.assets/../assets/screenshots/applicationworkingvideo.mov).
