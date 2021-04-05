@@ -1,35 +1,34 @@
 .navbar {
-  background-color: chartreuse;
+}
+
+main {
+  height: 100vh;
 }
 
 .searchSection {
   border-width: 3px;
   border: salmon;
   display: inline-block;
+  float: left;
 }
 
 .weatherSection {
-  display: inline-block;
-  background-color: cyan;
+  height: 100%;
+  float:right;
 }
 
 .currentWeather {
-  height: 50%;
-  width: 100%;
-  background-color:yellow;
+  height: 40%;
 }
 
 .currentWeather__Icon {
-  width: 50%;
-  background-color: sandybrown;
+  float: left;
 }
 
 .currentWeather__Info {
-  width: 50%;
-  background-color: sienna;
+  float:right;
 }
 
 .forecastWeather {
-  height: 50%;
-
+  background-color: violet;
 }

@@ -23,9 +23,9 @@
       </nav>
     </header>
     <main>
-      <aside class="col-lg-2 searchSection">
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <aside class="col-lg-3 col-sm-12 searchSection">
+        <form>
+          <input class="form-control me-0" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         <ul class="list-group">
@@ -36,70 +36,38 @@
           <li class="list-group-item">And a fifth one</li>
         </ul>
       </aside>
-      <section class="col-lg-9 weatherSection">
-        <div class="currentWeather">
+      <section class="col-lg-9 col-sm-12 weatherSection">
+        <article class="currentWeather">
           <div>
             Today's weather in CITY
           </div>
           <div>
-            <div class="d-inline currentWeather__Icon">
+            <div class="col-lg-5 col-sm-12 currentWeather__Icon">
               Icon here
             </div>
-            <div class="d-inline currentWeather__Info">
-              <ul>
-                <li> Temp </li>
-                <li> Humidity </li>
-                <li> Wind speed </li>
-                <li> UV index </li>
+            <div class="col-lg-7 col-sm-12 currentWeather__Info ">
+              <ul class="list-group">
+                <li class="list-group-item">Temp</li>
+                <li class="list-group-item">Humidity</li>
+                <li class="list-group-item">Wind speed</li>
+                <li class="list-group-item">UV index</li>
+              </ul>
+            </div>
+          </article>
+        <article class="d-flex flex-row justify-content-evenly forecastWeather">
+          <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <ul class="list-group">
+                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A second item</li>
               </ul>
             </div>
           </div>
-        </div>
-        <div class="d-flex flex-row justify-content-evenly forecastWeather">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <img src="..." class="card-img-top" alt="...">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <img src="..." class="card-img-top" alt="...">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <img src="..." class="card-img-top" alt="...">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <img src="..." class="card-img-top" alt="...">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <img src="..." class="card-img-top" alt="...">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <img src="..." class="card-img-top" alt="...">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-          </div>
-        </div>
+        </article>
       </section>
+
     </main>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
