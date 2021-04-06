@@ -1,20 +1,14 @@
 .navbar {
-}
-
-main {
-  height: 100vh;
+  background-image: linear-gradient(to right, #000000, #2c001b, #48003e, #520072, #2300b5);
+  color: white
 }
 
 .searchSection {
-  border-width: 3px;
-  border: salmon;
   display: inline-block;
-  float: left;
 }
 
 .weatherSection {
   height: 100%;
-  float:right;
 }
 
 .currentWeather {
@@ -22,11 +16,15 @@ main {
 }
 
 .currentWeather__Icon {
-  float: left;
+
 }
 
 .currentWeather__Info {
-  float:right;
+
+}
+
+.currentWeather__Info--li {
+  border: 0px;
 }
 
 .forecastWeather {
