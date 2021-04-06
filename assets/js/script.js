@@ -24,6 +24,9 @@ function fetchWeatherData (cityName) {
     const getCurrentWeather = (dataFromServer) => {
       currentWeatherObject = {
         temp: dataFromServer.current.temp,
+        humidity: dataFromServer.current.humidity,
+        windSpeed: dataFromServer.current.wind_speed,
+        uvIndex: dataFromServer.current.uvi,
       }
       console.log(currentWeatherObject)
     }
