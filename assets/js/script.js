@@ -14,13 +14,35 @@ function fetchWeatherData (cityName) {
       lon: dataFromServer.coord.lon,
       lat: dataFromServer.coord.lat,
     };
+
     weatherApiUrlForWeatherInfo = `https://api.openweathermap.org/data/2.5/onecall?lat=${lonLatObject.lat}&lon=${lonLatObject.lon}&appid=f1fdda4864afff5226ddcc1a17f0350f`
-    console.log (weatherApiUrlForWeatherInfo);
+
+    const functionForJSON = (responseObject) => {
+      return responseObject.json();
+    };
+
+    const getCurrentWeather = (dataFromServer) => {
+      currentWeatherObject = {
+        temp: dataFromServer.current.temp,
+      }
+      console.log(currentWeatherObject)
+    }
+
+    const functionForApplication = (dataFromServer) => {
+      currentWeather = getCurrentWeather(dataFromServer);
+    }
+
+
+
+    fetch(weatherApiUrlForWeatherInfo)
+      .then(functionForJSON)
+      .then(functionForApplication);
+
   }
 
   fetch(weatherApiUrlForLonLat)
     .then(functionForJSON)
-    .then(functionForApplication)
+    .then(functionForApplication);
 }
 
 function searchForCityWeather (event) {
