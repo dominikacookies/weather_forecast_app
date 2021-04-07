@@ -1,5 +1,23 @@
 let pastSearchesArray = [];
 
+const formatSearchedCityName = (searchedCityName) => {
+  // decapitalise city name
+  lowercaseCityName = searchedCityName.toLowerCase();
+  // capitalise first letter of city name
+  let cityName = lowercaseCityName.charAt(0).toUpperCase() + lowercaseCityName.slice(1); 
+  return cityName;
+}
+
+const convertUnixtoNormalDate = (unixTime) => {
+  var a = new Date(unixTime * 1000);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var time = date + ' ' + month + ' ' + year;
+  return time;
+}
+
 function buildCurrentWeatherSection (cityName, currentWeatherObject) {
  const article = $(".current-Weather").append(`
   <h1>
@@ -51,16 +69,6 @@ function fetchWeatherData (cityName) {
       return currentWeatherObject;
     };
 
-    const convertUnixtoNormalDate = (unixTime) => {
-      var a = new Date(unixTime * 1000);
-      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      var year = a.getFullYear();
-      var month = months[a.getMonth()];
-      var date = a.getDate();
-      var time = date + ' ' + month + ' ' + year;
-      return time;
-    }
-
     const createDailyForecastObject = (item) => {
       unixTime = item.dt
       normalTime = convertUnixtoNormalDate (unixTime)
@@ -100,7 +108,7 @@ const storeSearchedCity = (cityName) => {
   if (localStorage.getItem("pastCityWeatherSearches") !== null) {
     retrievedPastSearchesArray = JSON.parse(localStorage.getItem('pastCityWeatherSearches'))
     
-    // remove a city from the array if it's the same as the one that's been searched
+    // remove a city from the array if it's the same as the one that is being searched
     function removeCityIfSearchedBefore (item) {
       if (item !== cityName) {
         return true
@@ -113,12 +121,14 @@ const storeSearchedCity = (cityName) => {
   
   pastSearchesArray.push(cityName)
   localStorage.setItem("pastCityWeatherSearches",(JSON.stringify(pastSearchesArray)));
-}
+} 
 
 function searchForCityWeather (event) {
   event.preventDefault();
   // retrieve form input
-  let cityName = $(event.currentTarget).siblings("input").val();
+  let searchedCityName = $(event.currentTarget).siblings("input").val()
+  // format city name for consistency in local storage
+  cityName = formatSearchedCityName(searchedCityName);
   // fetch weather data
   fetchWeatherData(cityName);
   // store city name in local storage
