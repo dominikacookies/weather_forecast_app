@@ -51,14 +51,23 @@ function fetchWeatherData (cityName) {
         icon: dataFromServer.current.weather[0].icon,
       }
       return currentWeatherObject;
+    };
+
+
+    const createDailyForecastObject = (item) => {
+      dailyForecastInfoObject = {
+        temp: item.temp.day,
+        humidity: item.humidity,
+      }
+      return dailyForecastInfoObject;
     }
 
     const getForecastWeather = (dataFromServer) => {
-      dailyForecastArray = dataFromServer.daily;
-      console.log (dailyForecastArray);
-      fiveDayForecastArray = dailyForecastArray.slice(1,5);
-      console.log (fiveDayForecastArray);
-    }
+      dailyForecastArray = dataFromServer.daily
+      fiveDayForecastDataArray = dailyForecastArray.slice(1,5)
+      let forecastFiveDayWeatherInfo = fiveDayForecastDataArray.map(createDailyForecastObject)
+      console.log (forecastFiveDayWeatherInfo)
+    };
 
     const functionForApplication = (dataFromServer) => {
       currentWeather = getCurrentWeather(dataFromServer);
