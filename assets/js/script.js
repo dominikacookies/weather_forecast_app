@@ -53,9 +53,22 @@ function fetchWeatherData (cityName) {
       return currentWeatherObject;
     };
 
+    const convertUnixtoNormalDate = (unixTime) => {
+      var a = new Date(unixTime * 1000);
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var year = a.getFullYear();
+      var month = months[a.getMonth()];
+      var date = a.getDate();
+      var time = date + ' ' + month + ' ' + year;
+      return time;
+    }
 
     const createDailyForecastObject = (item) => {
+      unixTime = item.dt
+      normalTime = convertUnixtoNormalDate (unixTime)
+
       dailyForecastInfoObject = {
+        date: normalTime,
         temp: item.temp.day,
         humidity: item.humidity,
       }
@@ -64,7 +77,7 @@ function fetchWeatherData (cityName) {
 
     const getForecastWeather = (dataFromServer) => {
       dailyForecastArray = dataFromServer.daily
-      fiveDayForecastDataArray = dailyForecastArray.slice(1,5)
+      fiveDayForecastDataArray = dailyForecastArray.slice(1,6)
       let forecastFiveDayWeatherInfo = fiveDayForecastDataArray.map(createDailyForecastObject)
       console.log (forecastFiveDayWeatherInfo)
     };
