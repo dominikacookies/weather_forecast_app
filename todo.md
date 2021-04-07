@@ -1,4 +1,5 @@
 1. search  button appears below form
 2. cards not responsive
-3. alignt current weather info in center
-4. remove case sensitivity from saved array
+3. render current weather
+4. render forecast weather
+5. render local storage
