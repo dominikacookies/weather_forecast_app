@@ -54,7 +54,10 @@ function fetchWeatherData (cityName) {
     }
 
     const getForecastWeather = (dataFromServer) => {
-      console.log ("got it")
+      dailyForecastArray = dataFromServer.daily;
+      console.log (dailyForecastArray);
+      fiveDayForecastArray = dailyForecastArray.slice(1,5);
+      console.log (fiveDayForecastArray);
     }
 
     const functionForApplication = (dataFromServer) => {
