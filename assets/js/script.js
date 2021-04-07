@@ -1,3 +1,5 @@
+let pastSearchesArray = []
+
 function getCityName () {
   currentTarget.sibling("input").val();
 }
@@ -99,12 +101,19 @@ function fetchWeatherData (cityName) {
     .then(functionForApplication);
 }
 
+const storeSearchedCity = (cityName) => {
+  pastSearchesArray.push(cityName)
+  localStorage.setItem("pastCityWeatherSearches",(JSON.stringify(pastSearchesArray)));
+}
+
 function searchForCityWeather (event) {
   event.preventDefault();
   // retrieve form input
   let cityName = $(event.currentTarget).siblings("input").val();
   // fetch weather data
   fetchWeatherData(cityName);
+  // store city name in local storage
+  storeSearchedCity(cityName);
 }
 
 $("#searchForCityWeather").on( "click", "button", searchForCityWeather)
