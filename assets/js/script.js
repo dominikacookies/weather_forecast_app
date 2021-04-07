@@ -1,8 +1,4 @@
-let pastSearchesArray = []
-
-function getCityName () {
-  currentTarget.sibling("input").val();
-}
+let pastSearchesArray = [];
 
 function buildCurrentWeatherSection (cityName, currentWeatherObject) {
  const article = $(".current-Weather").append(`
@@ -93,7 +89,6 @@ function fetchWeatherData (cityName) {
     fetch(weatherApiUrlForWeatherInfo)
       .then(functionForJSON)
       .then(functionForApplication);
-
   }
 
   fetch(weatherApiUrlForLonLat)
@@ -102,6 +97,20 @@ function fetchWeatherData (cityName) {
 }
 
 const storeSearchedCity = (cityName) => {
+  if (localStorage.getItem("pastCityWeatherSearches") !== null) {
+    retrievedPastSearchesArray = JSON.parse(localStorage.getItem('pastCityWeatherSearches'))
+    
+    // remove a city from the array if it's the same as the one that's been searched
+    function removeCityIfSearchedBefore (item) {
+      if (item !== cityName) {
+        return true
+      } else {
+        return false;
+      }
+    }
+    pastSearchesArray = retrievedPastSearchesArray.filter(removeCityIfSearchedBefore);
+  }
+  
   pastSearchesArray.push(cityName)
   localStorage.setItem("pastCityWeatherSearches",(JSON.stringify(pastSearchesArray)));
 }
