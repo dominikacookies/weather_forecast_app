@@ -36,13 +36,24 @@ const convertUnixtoNormalDate = (unixTime) => {
   return time;
 }
 
-function clearInformation () {
+const clearInformation = () => {
   $(".currentWeather").empty();
   $("#forecastWeather").empty();
 }
 
+const colourCodeUvIndex = (currentWeather) => {
+  if (currentWeather.uvIndex < 3) {
+    $("#uvIndex").addClass("safe");
+  } else if (currentWeather.uvIndex > 2 && currentWeather.uvIndex < 5) {
+    $("#uvIndex").addClass("moderate");
+  } else {
+    $("#uvIndex").addClass("high");
+  }
+};
+
 function buildCurrentWeatherSection (cityName, currentWeather) {
   iconUrl = "https://openweathermap.org/img/w/" + currentWeather.icon + ".png" ;
+  
   $(".currentWeather").append(`
     <h1>
       Today's weather in ${cityName}
@@ -56,16 +67,16 @@ function buildCurrentWeatherSection (cityName, currentWeather) {
           <li class="list-group-item currentWeather__Info--li"> Temperature: ${currentWeather.temp} </li>
           <li class="list-group-item currentWeather__Info--li">Humidity: ${currentWeather.humidity} </li>
           <li class="list-group-item currentWeather__Info--li">Wind speed: ${currentWeather.windSpeed}</li>
-          <li class="list-group-item currentWeather__Info--li">UV index: ${currentWeather.uvIndex}</li>
+          <li class="list-group-item currentWeather__Info--li" id="uvIndex" >UV index: ${currentWeather.uvIndex}</li>
         </ul>
       </div>
     </div>`
   );
+  colourCodeUvIndex(currentWeather);
 }
 
 function buildForecastWeatherSection (item) {
   iconUrl = "https://openweathermap.org/img/w/" + currentWeather.icon + ".png" ;
-  console.log (item)
   $("#forecastWeather").append(
     `<div class="card mt-2" style="width: 200px;">
       <img src= ${iconUrl} class="card-img-top forecastIconSize" alt="...">

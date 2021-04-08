@@ -15,12 +15,20 @@
   height: 40%;
 }
 
-.currentWeather__Icon {
-
-}
-
 .currentIconSize {
   min-width: 150px;
+}
+
+.safe {
+  color: green;
+}
+
+.moderate {
+  color: orange;
+}
+
+.high {
+  color: red;
 }
 
 .forecastIconSize {
