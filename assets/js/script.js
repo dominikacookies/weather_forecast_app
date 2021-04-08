@@ -62,12 +62,12 @@ function buildForecastWeatherSection (item) {
   iconUrl = "https://openweathermap.org/img/w/" + currentWeather.icon + ".png" ;
   console.log (item)
   $("#forecastWeather").append(`
-  <div class="card" style="width: 200px;">
+  <div class="card mt-2" style="width: 200px;">
   <img src= ${iconUrl} class="card-img-top forecastIconSize" alt="...">
   <div class="card-body">
     <h5 class="card-title">${item.date}</h5>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">Temperature: ${currentWeather.temp}</li>
+    <li class="list-group-item">Temp: ${currentWeather.temp}</li>
     <li class="list-group-item">Humidity: ${item.humidity}</li>
   </ul>
 </div>`);
@@ -187,5 +187,10 @@ function searchForCityWeather (event) {
   fetchWeatherData(cityName);
 }
 
+function searchForPastCityWeather () {
+  console.log ("Im here waiting for instructuins")
+}
+
 $("document").ready(onLoad)
 $("#searchForCityWeather").on("click", "button", searchForCityWeather)
+$("#pastSearches").on("click", "li", searchForPastCityWeather)
