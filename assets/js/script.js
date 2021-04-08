@@ -36,41 +36,47 @@ const convertUnixtoNormalDate = (unixTime) => {
   return time;
 }
 
+function clearInformation () {
+  $(".currentWeather").empty();
+  $("#forecastWeather").empty();
+}
+
 function buildCurrentWeatherSection (cityName, currentWeather) {
-  
-iconUrl = "https://openweathermap.org/img/w/" + currentWeather.icon + ".png" ;
- $(".currentWeather").append(`
-  <h1>
-    Today's weather in ${cityName}
-  </h1>
-  <div class="row">
-    <div class="col-lg-5 col-sm-12 p-3 currentWeather__Icon">
-      <img src= ${iconUrl} class="currentIconSize">
-    </div>
-    <div class="col-lg-7 col-sm-12 p-3 currentWeather__Info ">
-      <ul class="list-group">
-        <li class="list-group-item currentWeather__Info--li"> Temperature: ${currentWeather.temp} </li>
-        <li class="list-group-item currentWeather__Info--li">Humidity: ${currentWeather.humidity} </li>
-        <li class="list-group-item currentWeather__Info--li">Wind speed: ${currentWeather.windSpeed}</li>
-        <li class="list-group-item currentWeather__Info--li">UV index: ${currentWeather.uvIndex}</li>
-      </ul>
-    </div>
-  </div>`);
+  iconUrl = "https://openweathermap.org/img/w/" + currentWeather.icon + ".png" ;
+  $(".currentWeather").append(`
+    <h1>
+      Today's weather in ${cityName}
+    </h1>
+    <div class="row">
+      <div class="col-lg-5 col-sm-12 p-3 currentWeather__Icon">
+        <img src= ${iconUrl} class="currentIconSize">
+      </div>
+      <div class="col-lg-7 col-sm-12 p-3 currentWeather__Info ">
+        <ul class="list-group">
+          <li class="list-group-item currentWeather__Info--li"> Temperature: ${currentWeather.temp} </li>
+          <li class="list-group-item currentWeather__Info--li">Humidity: ${currentWeather.humidity} </li>
+          <li class="list-group-item currentWeather__Info--li">Wind speed: ${currentWeather.windSpeed}</li>
+          <li class="list-group-item currentWeather__Info--li">UV index: ${currentWeather.uvIndex}</li>
+        </ul>
+      </div>
+    </div>`
+  );
 }
 
 function buildForecastWeatherSection (item) {
   iconUrl = "https://openweathermap.org/img/w/" + currentWeather.icon + ".png" ;
   console.log (item)
-  $("#forecastWeather").append(`
-  <div class="card mt-2" style="width: 200px;">
-  <img src= ${iconUrl} class="card-img-top forecastIconSize" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">${item.date}</h5>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Temp: ${currentWeather.temp}</li>
-    <li class="list-group-item">Humidity: ${item.humidity}</li>
-  </ul>
-</div>`);
+  $("#forecastWeather").append(
+    `<div class="card mt-2" style="width: 200px;">
+      <img src= ${iconUrl} class="card-img-top forecastIconSize" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">${item.date}</h5>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Temp: ${currentWeather.temp}</li>
+        <li class="list-group-item">Humidity: ${item.humidity}</li>
+      </ul>
+    </div>`
+  );
 };
 
 function fetchWeatherData (cityName) {
@@ -130,8 +136,10 @@ function fetchWeatherData (cityName) {
       };
 
       const functionForApplication = (dataFromServer) => {
-          // store city name in local storage
-          storeSearchedCity(cityName);
+        // store city name in local storage
+        storeSearchedCity(cityName);
+        // clear any data that was previously presented in the current and forecast weather sections
+        clearInformation ();
         // get current weather information
         currentWeather = getCurrentWeather(dataFromServer);
         // get forecasted weather information for the next 5 days
