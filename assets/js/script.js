@@ -187,8 +187,9 @@ function searchForCityWeather (event) {
   fetchWeatherData(cityName);
 }
 
-function searchForPastCityWeather () {
-  console.log ("Im here waiting for instructuins")
+function searchForPastCityWeather (event) {
+  cityName = $(event.currentTarget).text();
+  fetchWeatherData(cityName);
 }
 
 $("document").ready(onLoad)
