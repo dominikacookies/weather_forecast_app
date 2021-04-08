@@ -19,6 +19,14 @@
 
 }
 
+.currentIconSize {
+  min-width: 150px;
+}
+
+.forecastIconSize {
+  max-width: 100px;
+}
+
 .currentWeather__Info {
 
 }

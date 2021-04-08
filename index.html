@@ -26,32 +26,18 @@
       <aside id="searchForCityWeather" class="col-lg-3 col-md-4 col-sm-12 searchSection">
         <h5> Search for a city:</h5>
         <form>
-          <input class="d-inline col-lg-2 form-control me-0" type="search" placeholder="Search" aria-label="Search">
-          <button class="d-inline col-lg-4 btn btn-outline-success" type="submit">Search</button>
+          <input class="d-inline form-control me-0" type="search" placeholder="Search" aria-label="Search">
+          <button class="d-inline btn btn-outline-success" type="submit">Search</button>
         </form>
-        <ul class="list-group pt-3">
-
-        </ul>
+        <ul class="list-group pt-3"></ul>
       </aside>
       <section class="col-lg-9 col-md-8 col-sm-12 weatherSection">
-        <article class="row currentWeather">
-
-        </article>
-        <article class="row pt-3 pb-3 d-flex flex-row justify-content-evenly forecastWeather">
-          <div class="card" style="width: 250px;"></div>
-            <div class="card-body">
-              <img src="..." class="card-img-top" alt="...">
-              <h5 class="card-title">Card title</h5>
-              <ul class="list-group">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-              </ul>
-            </div>
-          </div>
+        <article class="row currentWeather"> </article>
+        <article id="forecastWeather" class="row pt-3 pb-3 d-flex flex-row justify-content-evenly">
         </article>
       </section>
-
     </main>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"

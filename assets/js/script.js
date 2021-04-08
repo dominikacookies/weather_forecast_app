@@ -38,14 +38,14 @@ const convertUnixtoNormalDate = (unixTime) => {
 
 function buildCurrentWeatherSection (cityName, currentWeather) {
   
-  iconUrl = "https://openweathermap.org/img/w/" + currentWeather.icon + ".png" ;
- const article = $(".currentWeather").append(`
+iconUrl = "https://openweathermap.org/img/w/" + currentWeather.icon + ".png" ;
+ $(".currentWeather").append(`
   <h1>
     Today's weather in ${cityName}
   </h1>
   <div class="row">
     <div class="col-lg-5 col-sm-12 p-3 currentWeather__Icon">
-      <img src= ${iconUrl}>
+      <img src= ${iconUrl} class="currentIconSize">
     </div>
     <div class="col-lg-7 col-sm-12 p-3 currentWeather__Info ">
       <ul class="list-group">
@@ -58,12 +58,23 @@ function buildCurrentWeatherSection (cityName, currentWeather) {
   </div>`);
 }
 
-function buildForecastWeatherSection (forecastWeather) {
-  console.log ("here")
-}
+function buildForecastWeatherSection (item) {
+  iconUrl = "https://openweathermap.org/img/w/" + currentWeather.icon + ".png" ;
+  console.log (item)
+  $("#forecastWeather").append(`
+  <div class="card" style="width: 200px;">
+  <img src= ${iconUrl} class="card-img-top forecastIconSize" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">${item.date}</h5>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Temperature: ${currentWeather.temp}</li>
+    <li class="list-group-item">Humidity: ${item.humidity}</li>
+  </ul>
+</div>`);
+};
 
 function fetchWeatherData (cityName) {
-  let weatherApiUrlForLonLat = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=f1fdda4864afff5226ddcc1a17f0350f`;
+  let weatherApiUrlForLonLat = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=f1fdda4864afff5226ddcc1a17f0350f`;
   
   const functionForJSON = (responseObject) => {
 
@@ -128,7 +139,7 @@ function fetchWeatherData (cityName) {
         // build a html section to display the current weather information
         buildCurrentWeatherSection (cityName, currentWeather);
         // build a html section to display forecasted weather information
-        buildForecastWeatherSection (forecastWeather);
+        forecastWeather.forEach(buildForecastWeatherSection);
     }
 
     fetch(weatherApiUrlForWeatherInfo)
@@ -177,4 +188,4 @@ function searchForCityWeather (event) {
 }
 
 $("document").ready(onLoad)
-$("#searchForCityWeather").on( "click", "button", searchForCityWeather)
+$("#searchForCityWeather").on("click", "button", searchForCityWeather)
