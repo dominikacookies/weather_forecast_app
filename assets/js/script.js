@@ -64,9 +64,9 @@ function buildCurrentWeatherSection (cityName, currentWeather) {
       </div>
       <div class="col-lg-7 col-sm-12 p-3 currentWeather__Info ">
         <ul class="list-group">
-          <li class="list-group-item currentWeather__Info--li"> Temperature: ${currentWeather.temp} </li>
-          <li class="list-group-item currentWeather__Info--li">Humidity: ${currentWeather.humidity} </li>
-          <li class="list-group-item currentWeather__Info--li">Wind speed: ${currentWeather.windSpeed}</li>
+          <li class="list-group-item currentWeather__Info--li"> Temperature: ${currentWeather.temp}°C</li>
+          <li class="list-group-item currentWeather__Info--li">Humidity: ${currentWeather.humidity}%</li>
+          <li class="list-group-item currentWeather__Info--li">Wind speed: ${currentWeather.windSpeed}mph </li>
           <li class="list-group-item currentWeather__Info--li" id="uvIndex" >UV index: ${currentWeather.uvIndex}</li>
         </ul>
       </div>
@@ -83,8 +83,8 @@ function buildForecastWeatherSection (item) {
     <div class="card-body">
       <h5 class="card-title">${item.date}</h5>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Temp: ${currentWeather.temp}</li>
-        <li class="list-group-item">Humidity: ${item.humidity}</li>
+        <li class="list-group-item">Temp: ${currentWeather.temp}°C</li>
+        <li class="list-group-item">Humidity: ${item.humidity}%</li>
       </ul>
     </div>`
   );
@@ -107,7 +107,7 @@ function fetchWeatherData (cityName) {
       };
 
       //construct url for second API call
-      weatherApiUrlForWeatherInfo = `https://api.openweathermap.org/data/2.5/onecall?lat=${lonLatObject.lat}&lon=${lonLatObject.lon}&exclude=minutely,hourly&appid=f1fdda4864afff5226ddcc1a17f0350f`
+      weatherApiUrlForWeatherInfo = `https://api.openweathermap.org/data/2.5/onecall?lat=${lonLatObject.lat}&lon=${lonLatObject.lon}&exclude=minutely,hourly&units=metric&appid=f1fdda4864afff5226ddcc1a17f0350f`
 
       const functionForJSON = (responseObject) => {
         return responseObject.json();
