@@ -1,18 +1,26 @@
 let pastSearchesArray = [];
 
+function displayPastSearches () {
+  retrievedPastSearchesArray = JSON.parse(localStorage.getItem('pastCityWeatherSearches'))
+  // reverse the array so that the most recent search is first
+  reversedPastSearchesArray = retrievedPastSearchesArray.reverse()
+  $("#pastSearches").empty()
+  // fetch city name of most recent search and get its weather data
+  $(reversedPastSearchesArray).each(function buildListItem () {
+    $("#pastSearches").append(`<li class="list-group-item">${this}</li>`)
+  })
+  cityName = reversedPastSearchesArray
+  return cityName;
+};
+
 function onLoad () {
   // check if data is present in local storage
   if (localStorage.getItem("pastCityWeatherSearches") !== null) {
-    retrievedPastSearchesArray = JSON.parse(localStorage.getItem('pastCityWeatherSearches'))
-    // reverse the array so that the most recent search is first
-    reversedPastSearchesArray = retrievedPastSearchesArray.reverse()
-    // fetch city name of most recent search and get its weather data
-    cityName = reversedPastSearchesArray[0]
-    fetchWeatherData (cityName)
+    orderedPastSearches = displayPastSearches();
+    cityName = orderedPastSearches[0]
+    fetchWeatherData (cityName);
     // display past searches on page
-    $(reversedPastSearchesArray).each(function buildListItem () {
-      $("#searchForCityWeather .list-group").append(`<li class="list-group-item">${this}</li>`)
-    })
+
   } else {
     $(".currentWeather").append(`
     <h2>
@@ -166,6 +174,9 @@ function fetchWeatherData (cityName) {
         buildCurrentWeatherSection (cityName, currentWeather);
         // build a html section to display forecasted weather information
         forecastWeather.forEach(buildForecastWeatherSection);
+        // add searched city name to list of past searches
+        displayPastSearches ();
+        //$("#searchForCityWeather .list-group").prepend(`<li class="list-group-item">${cityName}</li>`)
     }
 
     fetch(weatherApiUrlForWeatherInfo)
