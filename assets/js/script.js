@@ -73,10 +73,10 @@ function buildCurrentWeatherSection (cityName, currentWeather) {
     ${currentWeather.date}
     </p>
     <div class="row">
-      <div class="col-lg-5 col-sm-12 p-3 currentWeather__Icon">
-        <img src= ${iconUrl} class="currentIconSize">
+      <div class="col-lg-5 col-xs-12 p-3">
+        <img src= ${iconUrl} class="currentWeather__Icon">
       </div>
-      <div class="col-lg-7 col-sm-12 p-3 currentWeather__Info ">
+      <div class="col-lg-7 col-xs-12 p-3 currentWeather__Info ">
         <ul class="list-group">
           <li class="list-group-item currentWeather__Info--li"> Temperature: ${currentWeather.temp}°C</li>
           <li class="list-group-item currentWeather__Info--li">Humidity: ${currentWeather.humidity}%</li>
@@ -94,7 +94,7 @@ function buildForecastWeatherSection (item) {
   iconUrl = "https://openweathermap.org/img/wn/" + item.icon + "@2x.png" ;
   $("#forecastWeather").append(
     `<div class="card mt-2" style="width: 200px;">
-      <img src= ${iconUrl} class="card-img-top forecastIconSize" alt="...">
+      <img src= ${iconUrl} class="card-img-top forecastWeatherIcon" alt="...">
     <div class="card-body">
       <h5 class="card-title">${item.date}</h5>
       <ul class="list-group list-group-flush">
@@ -123,7 +123,6 @@ function fetchWeatherData (cityName) {
 
       //construct url for second API call
       weatherApiUrlForWeatherInfo = `https://api.openweathermap.org/data/2.5/onecall?lat=${lonLatObject.lat}&lon=${lonLatObject.lon}&exclude=minutely,hourly&units=metric&appid=f1fdda4864afff5226ddcc1a17f0350f`
-      console.log (weatherApiUrlForWeatherInfo)
 
       const functionForJSON = (responseObject) => {
         return responseObject.json();
@@ -131,7 +130,7 @@ function fetchWeatherData (cityName) {
 
       const getCurrentWeather = (dataFromServer) => {
         unixTime = dataFromServer.current.dt
-        normalTime = convertUnixtoNormalDate (unixTime) 
+        normalTime = convertUnixtoNormalDate(unixTime) 
         currentWeatherObject = {
           date: normalTime,
           temp: dataFromServer.current.temp,
