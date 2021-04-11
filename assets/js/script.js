@@ -14,7 +14,10 @@ function onLoad () {
       $("#searchForCityWeather .list-group").append(`<li class="list-group-item">${this}</li>`)
     })
   } else {
-    return
+    $(".currentWeather").append(`
+    <h2>
+      Search for a city to find it's current and 5 day forecasted weather.
+    </h2>`);
   }
 }
 
@@ -198,12 +201,20 @@ const storeSearchedCity = (cityName) => {
 
 function searchForCityWeather (event) {
   event.preventDefault();
-  // retrieve form input
-  let searchedCityName = $(event.currentTarget).siblings("input").val()
+
+  let formInput = $(event.currentTarget).siblings("input").val();
+
+  //reject empty inputs
+  if (formInput == "") { 
+  $("#searchForCityWeather").append(`
+      <p class="inputError"> Please insert a city name to search. </p>`);
+  } else {
+  $(".inputError").remove();
   // format city name for consistency in local storage
-  cityName = formatSearchedCityName(searchedCityName);
+  cityName = formatSearchedCityName(formInput);
   // fetch weather data
   fetchWeatherData(cityName);
+  };
 }
 
 function searchForPastCityWeather (event) {
