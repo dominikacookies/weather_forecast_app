@@ -79,14 +79,15 @@ function buildCurrentWeatherSection (cityName, currentWeather) {
 }
 
 function buildForecastWeatherSection (item) {
-  iconUrl = "https://openweathermap.org/img/w/" + currentWeather.icon + ".png" ;
+  https://openweathermap.org/img/wn/13d@2x.png
+  iconUrl = "https://openweathermap.org/img/wn/" + item.icon + "@2x.png" ;
   $("#forecastWeather").append(
     `<div class="card mt-2" style="width: 200px;">
       <img src= ${iconUrl} class="card-img-top forecastIconSize" alt="...">
     <div class="card-body">
       <h5 class="card-title">${item.date}</h5>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Temp: ${currentWeather.temp}°C</li>
+        <li class="list-group-item">Temp: ${item.temp}°C</li>
         <li class="list-group-item">Humidity: ${item.humidity}%</li>
       </ul>
     </div>`
@@ -111,6 +112,7 @@ function fetchWeatherData (cityName) {
 
       //construct url for second API call
       weatherApiUrlForWeatherInfo = `https://api.openweathermap.org/data/2.5/onecall?lat=${lonLatObject.lat}&lon=${lonLatObject.lon}&exclude=minutely,hourly&units=metric&appid=f1fdda4864afff5226ddcc1a17f0350f`
+      console.log (weatherApiUrlForWeatherInfo)
 
       const functionForJSON = (responseObject) => {
         return responseObject.json();
@@ -131,9 +133,11 @@ function fetchWeatherData (cityName) {
         // convert unix time stamp to normal date format
         unixTime = item.dt
         normalTime = convertUnixtoNormalDate (unixTime) 
+        console.log(item.weather.icon)
         // store forecast data in an object
         dailyForecastInfoObject = {
           date: normalTime,
+          icon: item.weather[0].icon,
           temp: item.temp.day,
           humidity: item.humidity,
         }
