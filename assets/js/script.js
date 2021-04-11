@@ -23,9 +23,9 @@ function onLoad () {
 
   } else {
     $(".currentWeather").append(`
-    <h2>
+    <p class="infoText">
       Search for a city to find it's current and 5 day forecasted weather.
-    </h2>`);
+    </p>`);
   }
 }
 
@@ -141,7 +141,6 @@ function fetchWeatherData (cityName) {
         // convert unix time stamp to normal date format
         unixTime = item.dt
         normalTime = convertUnixtoNormalDate (unixTime) 
-        console.log(item.weather.icon)
         // store forecast data in an object
         dailyForecastInfoObject = {
           date: normalTime,
@@ -185,14 +184,20 @@ function fetchWeatherData (cityName) {
       .catch(handleErrors)
   }
 
-  function handleErrors (errorObject) {
-    console.log(errorObject);
-  }
-
   fetch(weatherApiUrlForLonLat)
     .then(functionForJSON)
     .then(functionForApplication)
     .catch(handleErrors)
+}
+
+function handleErrors (errorObject) {
+  $(".currentWeather").empty();
+  $("#forecastWeather").empty();
+  $(".currentWeather").append(`
+    <p class="infoText">
+      Sorry, we couldn't find your city! <br> Please check your spelling and search again.
+    </p>`
+  );
 }
 
 const storeSearchedCity = (cityName) => {
@@ -221,8 +226,12 @@ function searchForCityWeather (event) {
 
   //reject empty inputs
   if (formInput == "") { 
-  $("#searchForm").append(`
-      <p class="pt-2 inputError"> Please insert a city name to search. </p>`);
+    $(".inputError").remove();
+    $("#searchForm").append(`
+      <p class="pt-2 inputError">
+       Please insert a city name to search. 
+      </p>`
+    );
   } else {
   $(".inputError").remove();
   // format city name for consistency in local storage
