@@ -55,7 +55,7 @@ const colourCodeUvIndex = (currentWeather) => {
 };
 
 function buildCurrentWeatherSection (cityName, currentWeather) {
-  iconUrl = "https://openweathermap.org/img/w/" + currentWeather.icon + ".png" ;
+  iconUrl = "https://openweathermap.org/img/wn/" + currentWeather.icon + "@2x.png" ;
   
   $(".currentWeather").append(`
     <h1>
@@ -205,13 +205,13 @@ const storeSearchedCity = (cityName) => {
 
 function searchForCityWeather (event) {
   event.preventDefault();
-
+  // store input value in a variable
   let formInput = $(event.currentTarget).siblings("input").val();
 
   //reject empty inputs
   if (formInput == "") { 
-  $("#searchForCityWeather").append(`
-      <p class="inputError"> Please insert a city name to search. </p>`);
+  $("#searchForm").append(`
+      <p class="pt-2 inputError"> Please insert a city name to search. </p>`);
   } else {
   $(".inputError").remove();
   // format city name for consistency in local storage
