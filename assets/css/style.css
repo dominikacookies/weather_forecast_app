@@ -1,5 +1,5 @@
 .navbar {
-  background-image: linear-gradient(to right, #000000, #2c001b, #48003e, #520072, #2300b5);
+  background-color: rgb(32, 32, 32);
   color: white
 }
 
@@ -9,6 +9,12 @@
 
 .inputError {
   color: red;
+}
+
+.infoText {
+  font-size: 20px;
+  padding-top: 10px;
+  text-align: center;
 }
 
 .weatherSection {
@@ -21,6 +27,10 @@
 
 .currentIconSize {
   min-width: 150px;
+}
+
+.currentWeather__Info--li {
+  border: 0px;
 }
 
 .safe {
@@ -37,16 +47,4 @@
 
 .forecastIconSize {
   max-width: 100px;
-}
-
-.currentWeather__Info {
-
-}
-
-.currentWeather__Info--li {
-  border: 0px;
-}
-
-.forecastWeather {
-  background-color: violet;
 }
