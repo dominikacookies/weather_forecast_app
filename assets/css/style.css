@@ -23,10 +23,14 @@
 
 .currentWeather {
   height: 40%;
+  padding: 10px;
 }
 
-.currentIconSize {
+.currentWeather__Icon {
   min-width: 150px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .currentWeather__Info--li {
@@ -45,6 +49,19 @@
   color: red;
 }
 
-.forecastIconSize {
-  max-width: 100px;
+.card-body {
+  text-align: center;
+}
+
+.forecastWeatherIcon {
+  max-width: 90px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (max-width: 990px) {
+  .currentWeather {
+    text-align: center;
+  }
 }
