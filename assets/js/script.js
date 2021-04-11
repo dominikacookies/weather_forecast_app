@@ -69,6 +69,9 @@ function buildCurrentWeatherSection (cityName, currentWeather) {
     <h1>
       Today's weather in ${cityName}
     </h1>
+    <p>
+    ${currentWeather.date}
+    </p>
     <div class="row">
       <div class="col-lg-5 col-sm-12 p-3 currentWeather__Icon">
         <img src= ${iconUrl} class="currentIconSize">
@@ -127,7 +130,10 @@ function fetchWeatherData (cityName) {
       };
 
       const getCurrentWeather = (dataFromServer) => {
+        unixTime = dataFromServer.current.dt
+        normalTime = convertUnixtoNormalDate (unixTime) 
         currentWeatherObject = {
+          date: normalTime,
           temp: dataFromServer.current.temp,
           humidity: dataFromServer.current.humidity,
           windSpeed: dataFromServer.current.wind_speed,
