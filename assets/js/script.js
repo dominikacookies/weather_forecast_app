@@ -4,24 +4,27 @@ function displayPastSearches () {
   retrievedPastSearchesArray = JSON.parse(localStorage.getItem('pastCityWeatherSearches'))
   // reverse the array so that the most recent search is first
   reversedPastSearchesArray = retrievedPastSearchesArray.reverse()
+  // empy the past searches container
   $("#pastSearches").empty()
-  // fetch city name of most recent search and get its weather data
+  // display each item in array on page
   $(reversedPastSearchesArray).each(function buildListItem () {
     $("#pastSearches").append(`<li class="list-group-item">${this}</li>`)
   })
-  cityName = reversedPastSearchesArray
-  return cityName;
+  orderedPastSearches = reversedPastSearchesArray
+  return orderedPastSearches;
 };
 
 function onLoad () {
   // check if data is present in local storage
   if (localStorage.getItem("pastCityWeatherSearches") !== null) {
+    // display past searches and retrieve the correctly ordered array (search recency order)
     orderedPastSearches = displayPastSearches();
+    // get name of most recent city search
     cityName = orderedPastSearches[0]
+    //get and display weather for that city
     fetchWeatherData (cityName);
-    // display past searches on page
-
   } else {
+    // if local storage is empty prompt user to search 
     $(".currentWeather").append(`
     <p class="infoText">
       Search for a city to find it's current and 5 day forecasted weather.
@@ -38,11 +41,13 @@ const formatSearchedCityName = (searchedCityName) => {
 }
 
 const convertUnixtoNormalDate = (unixTime) => {
+  // convert unix time to date, month and year
   var a = new Date(unixTime * 1000);
   var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var year = a.getFullYear();
   var month = months[a.getMonth()];
   var date = a.getDate();
+  // return the time in as date, month, year format
   var time = date + ' ' + month + ' ' + year;
   return time;
 }
@@ -63,11 +68,12 @@ const colourCodeUvIndex = (currentWeather) => {
 };
 
 function buildCurrentWeatherSection (cityName, currentWeather) {
+  // construct url to obtain icon
   iconUrl = "https://openweathermap.org/img/wn/" + currentWeather.icon + "@2x.png" ;
   
   $(".currentWeather").append(`
     <h1>
-      Today's weather in ${cityName}
+      Current weather in ${cityName}
     </h1>
     <p>
     ${currentWeather.date}
@@ -90,7 +96,7 @@ function buildCurrentWeatherSection (cityName, currentWeather) {
 }
 
 function buildForecastWeatherSection (item) {
-  https://openweathermap.org/img/wn/13d@2x.png
+  // construc url to obtain weather icon
   iconUrl = "https://openweathermap.org/img/wn/" + item.icon + "@2x.png" ;
   $("#forecastWeather").append(
     `<div class="card mt-2" style="width: 200px;">
@@ -106,14 +112,15 @@ function buildForecastWeatherSection (item) {
 };
 
 function fetchWeatherData (cityName) {
+  // construct url to obtain lon and lat values of city
   let weatherApiUrlForLonLat = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=f1fdda4864afff5226ddcc1a17f0350f`;
   
+  // convert response to json
   const functionForJSON = (responseObject) => {
 
     return responseObject.json();
   };
 
-  
   const functionForApplication = (dataFromServer) => {
       //get lon and lat values for second API call
       const lonLatObject = {
@@ -121,13 +128,14 @@ function fetchWeatherData (cityName) {
         lat: dataFromServer.coord.lat,
       };
 
-      //construct url for second API call
+      //construct url for second API call to obtain weather info
       weatherApiUrlForWeatherInfo = `https://api.openweathermap.org/data/2.5/onecall?lat=${lonLatObject.lat}&lon=${lonLatObject.lon}&exclude=minutely,hourly&units=metric&appid=f1fdda4864afff5226ddcc1a17f0350f`
 
       const functionForJSON = (responseObject) => {
         return responseObject.json();
       };
-
+      
+      // get info for current weather and store it in an object
       const getCurrentWeather = (dataFromServer) => {
         unixTime = dataFromServer.current.dt
         normalTime = convertUnixtoNormalDate(unixTime) 
@@ -142,11 +150,11 @@ function fetchWeatherData (cityName) {
         return currentWeatherObject;
       };
 
+      // for each daily forecast create a weather info object
       const createDailyForecastObject = (item) => {
         // convert unix time stamp to normal date format
         unixTime = item.dt
         normalTime = convertUnixtoNormalDate (unixTime) 
-        // store forecast data in an object
         dailyForecastInfoObject = {
           date: normalTime,
           icon: item.weather[0].icon,
@@ -157,6 +165,7 @@ function fetchWeatherData (cityName) {
       }
 
       const getForecastWeather = (dataFromServer) => {
+        // get daily forecasted data
         dailyForecastArray = dataFromServer.daily
         // form an array with forecast for only the upcoming 5 days
         fiveDayForecastDataArray = dailyForecastArray.slice(1,6)
@@ -180,17 +189,16 @@ function fetchWeatherData (cityName) {
         forecastWeather.forEach(buildForecastWeatherSection);
         // add searched city name to list of past searches
         displayPastSearches ();
-        //$("#searchForCityWeather .list-group").prepend(`<li class="list-group-item">${cityName}</li>`)
     }
 
     fetch(weatherApiUrlForWeatherInfo)
-      .then(functionForJSON)
+      .then(functionForJSON)  // convert response to json
       .then(functionForApplication)
       .catch(handleErrors)
   }
 
   fetch(weatherApiUrlForLonLat)
-    .then(functionForJSON)
+    .then(functionForJSON) // convert response to json
     .then(functionForApplication)
     .catch(handleErrors)
 }
@@ -209,7 +217,7 @@ const storeSearchedCity = (cityName) => {
   if (localStorage.getItem("pastCityWeatherSearches") !== null) {
     retrievedPastSearchesArray = JSON.parse(localStorage.getItem('pastCityWeatherSearches'))
     
-    // remove a city from the array if it's the same as the one that is being searched
+    // remove an object from the array if its value is the same as the name of the city being searched
     function removeCityIfSearchedBefore (item) {
       if (item !== cityName) {
         return true
@@ -220,13 +228,14 @@ const storeSearchedCity = (cityName) => {
     pastSearchesArray = retrievedPastSearchesArray.filter(removeCityIfSearchedBefore);
   }
   
+  // add searched city name to array and store it in local storage
   pastSearchesArray.push(cityName)
   localStorage.setItem("pastCityWeatherSearches",(JSON.stringify(pastSearchesArray)));
 } 
 
 function searchForCityWeather (event) {
   event.preventDefault();
-  // store input value in a variable
+  // store form input value in a variable
   let formInput = $(event.currentTarget).siblings("input").val();
 
   //reject empty inputs
