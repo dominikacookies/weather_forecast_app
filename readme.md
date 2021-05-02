@@ -17,6 +17,17 @@ This project allows a user to check the current and forecasted weather condition
 - if user submits the search form without an input an error message displays
 - if user inputs invalid city name into search form an error message displays
 
+## Technologies used
+- HTML5
+- CSS
+- Javascript
+- jQuery
+- Local storage
+- ES6 Functions
+
+## License 
+MIT License
+
 ## Screenshots of App
 
 ### Page when first loaded (no searched conducted)
